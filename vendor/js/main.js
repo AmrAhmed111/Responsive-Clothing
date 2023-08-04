@@ -49,13 +49,27 @@ const scrollUp = () => {
 window.addEventListener('scroll', scrollUp);
 // Dark Light Theme
 const themeButton = document.getElementById('theme-button');
+if (window.localStorage.icon) {
+    themeButton.src = localStorage.icon;
+}
+if (window.localStorage.theam) {
+    document.body.classList.add(localStorage.theam);
+}else {
+    document.body.classList.remove(localStorage.theam);
+}
 themeButton.onclick = () => {
-        document.body.classList.toggle('dark-theme');
-        if (document.body.classList.contains('dark-theme')) {
+        document.body.classList.toggle('active');
+        if (document.body.classList.contains('active')) {
+                document.body.classList.add('dark-theme');
                 themeButton.src = 'img/sun.png';
-            } else {
+                window.localStorage.setItem("icon" , themeButton.src);
+                window.localStorage.setItem("theam" , 'dark-theme');
+        } else {
+                    document.body.classList.remove('dark-theme');
                     themeButton.src = 'img/moon.png';
-            }
+                    window.localStorage.setItem("icon" , themeButton.src);
+                    window.localStorage.removeItem("theam");
+        }
 }
 // Scroll Reveal Animation
 const sr = ScrollReveal({
